@@ -58,7 +58,7 @@ class AlarmCenterApp(App):
         # create left column
         left = BoxLayout(orientation='vertical')
         timebutton = TimeButton(text="Time")
-        left.add_widget(timebutton)
+        left.add_widget(TimeButton)
         left.add_widget(self.build_date_tile())
 
         right = BoxLayout(orientation='vertical')
