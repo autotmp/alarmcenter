@@ -45,6 +45,8 @@ class AlarmCenterApp(App):
         return tile
 
     def build(self):
+        froot = FloatLayout()
+
         # create root layout
         root = BoxLayout(orientation='horizontal')
 
@@ -64,7 +66,9 @@ class AlarmCenterApp(App):
         root.add_widget(left)
         root.add_widget(right)
 
-        return root
+        froot.add_widget(root)
+
+        return froot
 
 if __name__ == '__main__':
     AlarmCenterApp().run()
