@@ -9,6 +9,9 @@
 # from time import strftime
 # from functools import partial
 
+import kivy
+kivy.require('1.10.0')
+
 ## kivy imports
 from kivy.app import App
 from kivy.uix.widget import Widget
@@ -26,6 +29,8 @@ from kivy.uix.boxlayout import BoxLayout
 # from kivy.uix.vkeyboard import VKeyboard
 # from kivy.uix.spinner import Spinner
 
+from timebutton import TimeButton
+
 # launch as fullscreen application
 # Config.set('graphics', 'fullscreen', 'auto')
 # Config.set('kivy', 'keyboard_mode', 'dock')
@@ -42,21 +47,23 @@ class AlarmCenterApp(App):
         tile = Button(text='dd MMM YYYY')
         return tile
 
+    def build_alarm_tile(self, text):
+        tile = Button(text=text)
+        return tile
+
     def build(self):
         # create root layout
         root = BoxLayout(orientation='horizontal')
 
         # create left column
         left = BoxLayout(orientation='vertical')
-
-        left.add_widget(self.build_time_tile())
+        timebutton = TimeButton(text="Time")
+        left.add_widget(timebutton)
         left.add_widget(self.build_date_tile())
 
         right = BoxLayout(orientation='vertical')
-        alarm1 = Button(text='HH::MM')
-        alarm2 = Button(text='HH::MM')
-        right.add_widget(alarm1)
-        right.add_widget(alarm2)
+        right.add_widget(self.build_alarm_tile('alarm1'))
+        right.add_widget(self.build_alarm_tile('alarm2'))
 
         root.add_widget(left)
         root.add_widget(right)
