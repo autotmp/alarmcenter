@@ -45,35 +45,39 @@ class AlarmCenterApp(App):
         tile = Button(text=text)
         return tile
 
-    def build(self):
-        # create floating "root" layout
-        froot = FloatLayout()
-
-        # create "root" box layout, where all the action really is...
-        root = BoxLayout(orientation='horizontal')
-
+    def build_left(self):
         # create left column
-        left = BoxLayout(orientation='vertical')
+        layout = BoxLayout(orientation='vertical')
 
         timebutton = TimeButton(text='Time', size_hint=(1.0, 1.0))
-        left.add_widget(timebutton)
+        layout.add_widget(timebutton)
 
         datebutton = DateButton(text='Date', size_hint=(1.0, 1.0))
-        left.add_widget(datebutton)
+        layout.add_widget(datebutton)
 
         backlightbutton = BacklightButton(size_hint=(1.0,1.0))
-        left.add_widget(backlightbutton)
+        layout.add_widget(backlightbutton)
+        return layout
+
+    def build(self):
+        # create floating "root" layout
+        root = FloatLayout()
+
+        # create "root" box layout, where all the action really is...
+        broot = BoxLayout(orientation='horizontal')
+
+        left = self.build_left()
 
         right = BoxLayout(orientation='vertical')
         right.add_widget(self.build_alarm_tile('alarm1'))
         right.add_widget(self.build_alarm_tile('alarm2'))
 
-        root.add_widget(left)
-        root.add_widget(right)
+        broot.add_widget(left)
+        broot.add_widget(right)
 
-        froot.add_widget(root)
+        root.add_widget(broot)
 
-        return froot
+        return root
 
 if __name__ == '__main__':
     AlarmCenterApp().run()
