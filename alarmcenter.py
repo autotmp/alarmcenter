@@ -29,7 +29,9 @@ from kivy.uix.boxlayout import BoxLayout
 # from kivy.uix.vkeyboard import VKeyboard
 # from kivy.uix.spinner import Spinner
 
+## custom imports
 from timebutton import TimeButton
+from datebutton import DateButton
 
 # launch as fullscreen application
 # Config.set('graphics', 'fullscreen', 'auto')
@@ -57,9 +59,10 @@ class AlarmCenterApp(App):
 
         # create left column
         left = BoxLayout(orientation='vertical')
-        timebutton = TimeButton(text="Time")
-        left.add_widget(TimeButton)
-        left.add_widget(self.build_date_tile())
+        timebutton = TimeButton(text='Time')
+        left.add_widget(timebutton)
+        datebutton = DateButton(text='Date')
+        left.add_widget(datebutton)
 
         right = BoxLayout(orientation='vertical')
         right.add_widget(self.build_alarm_tile('alarm1'))

@@ -15,17 +15,15 @@ kivy.require('1.10.0')
 from kivy.uix.button import Button
 from kivy.clock import Clock
 
-## custom button that displays current time
-class TimeButton(Button):
+## custom button that displays the current date
+class DateButton(Button):
     markup = True
 
     def __update(self, dt):
-        self.text = "[b]" + strftime('%H')
-        self.text += strftime(':%M') + "[/b]"
-        self.text += strftime(':%S')
-        print("TimeButton.__update")
+        self.text = strftime('%a %b %d %Y')
+        print("DateButton.__update")
 
     def __init__(self, **kwargs):
         super(Button,self).__init__(**kwargs)
-        self.font_size = self.height/1.5
+        self.font_size = self.height/3.0
         Clock.schedule_interval(self.__update, 1.0)
