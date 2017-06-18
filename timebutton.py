@@ -12,10 +12,8 @@ import kivy
 kivy.require('1.10.0')
 
 ## kivy imports
-from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.clock import Clock
-from kivy.properties import StringProperty
 
 ## custom button that update time
 class TimeButton(Button):
