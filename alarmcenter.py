@@ -40,15 +40,6 @@ from datebutton import DateButton
 
 # main
 class AlarmCenterApp(App):
-    def build_time_tile(self):
-        # build time tile
-        tile = Button(text='HH:MM::ss')
-        return tile
-
-    def build_date_tile(self):
-        tile = Button(text='dd MMM YYYY')
-        return tile
-
     def build_alarm_tile(self, text):
         tile = Button(text=text)
         return tile
@@ -59,9 +50,11 @@ class AlarmCenterApp(App):
 
         # create left column
         left = BoxLayout(orientation='vertical')
-        timebutton = TimeButton(text='Time')
+
+        timebutton = TimeButton(text='Time', size_hint=(1.0, 1.0))
         left.add_widget(timebutton)
-        datebutton = DateButton(text='Date')
+
+        datebutton = DateButton(text='Date', size_hint=(1.0, 0.5))
         left.add_widget(datebutton)
 
         right = BoxLayout(orientation='vertical')
