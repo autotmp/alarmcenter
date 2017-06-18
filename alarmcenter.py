@@ -18,7 +18,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 # from kivy.uix.togglebutton import ToggleButton
-# from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.floatlayout import FloatLayout
 # from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 # from kivy.config import Config
@@ -32,6 +32,7 @@ from kivy.uix.boxlayout import BoxLayout
 ## custom imports
 from timebutton import TimeButton
 from datebutton import DateButton
+from backlightbutton import BacklightButton
 
 # launch as fullscreen application
 # Config.set('graphics', 'fullscreen', 'auto')
@@ -45,9 +46,10 @@ class AlarmCenterApp(App):
         return tile
 
     def build(self):
+        # create floating "root" layout
         froot = FloatLayout()
 
-        # create root layout
+        # create "root" box layout, where all the action really is...
         root = BoxLayout(orientation='horizontal')
 
         # create left column
@@ -56,8 +58,11 @@ class AlarmCenterApp(App):
         timebutton = TimeButton(text='Time', size_hint=(1.0, 1.0))
         left.add_widget(timebutton)
 
-        datebutton = DateButton(text='Date', size_hint=(1.0, 0.5))
+        datebutton = DateButton(text='Date', size_hint=(1.0, 1.0))
         left.add_widget(datebutton)
+
+        backlightbutton = BacklightButton(size_hint=(1.0,1.0))
+        left.add_widget(backlightbutton)
 
         right = BoxLayout(orientation='vertical')
         right.add_widget(self.build_alarm_tile('alarm1'))
