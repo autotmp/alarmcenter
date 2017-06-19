@@ -42,9 +42,9 @@ from alarmbutton import AlarmButton
 
 # main
 class AlarmCenterApp(App):
-    def build_alarm_tile(self, text):
-        tile = Button(text=text)
-        return tile
+
+    def if_root(self):
+        print("i am root")
 
     def build_left(self):
         # create left column
