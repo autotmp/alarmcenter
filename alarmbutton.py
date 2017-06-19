@@ -60,14 +60,17 @@ class AlarmButton(Button):
         print("toggle alarm", value)
         self.enabled = value
 
-    def update_alarm(self):
+    def update_alarm(self, instance):
         print("popup dismissed")
+        alarm = datetime.time(int(self.hour), int(self.minute))
+        self.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
+        print(alarm)
 
     def launch_popup(self):
         layout = self.build_set_alarm()
         title = 'Set ' + self.text
         popup = Popup(title=title, content=layout, size_hint=(0.7, 0.2))
-        popup.bind(on_dimiss=self.update_alarm)
+        popup.bind(on_dismiss=self.update_alarm)
         popup.open()
 
     def on_press(self):
