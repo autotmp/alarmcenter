@@ -33,6 +33,7 @@ from kivy.uix.boxlayout import BoxLayout
 from timebutton import TimeButton
 from datebutton import DateButton
 from backlightbutton import BacklightButton
+from alarmbutton import AlarmButton
 
 # launch as fullscreen application
 # Config.set('graphics', 'fullscreen', 'auto')
@@ -59,6 +60,18 @@ class AlarmCenterApp(App):
         layout.add_widget(backlightbutton)
         return layout
 
+    def build_right(self):
+        # create right column
+        layout = BoxLayout(orientation='vertical')
+
+        alarm1 = AlarmButton(text='Alarm 1')
+        layout.add_widget(alarm1)
+
+        alarm2 = AlarmButton(text='Alarm 2')
+        layout.add_widget(alarm2)
+
+        return layout
+
     def build(self):
         # create floating "root" layout
         root = FloatLayout()
@@ -66,13 +79,12 @@ class AlarmCenterApp(App):
         # create "root" box layout, where all the action really is...
         broot = BoxLayout(orientation='horizontal')
 
+        # build left column
         left = self.build_left()
-
-        right = BoxLayout(orientation='vertical')
-        right.add_widget(self.build_alarm_tile('alarm1'))
-        right.add_widget(self.build_alarm_tile('alarm2'))
-
         broot.add_widget(left)
+
+        # build right column
+        right = self.build_right()
         broot.add_widget(right)
 
         root.add_widget(broot)
