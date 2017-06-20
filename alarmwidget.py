@@ -22,7 +22,10 @@ from kivy.core.window import Window
 from kivy.uix.spinner import Spinner
 
 class AlarmWidget(BoxLayout):
-    orientation = 'vertical'
+    orientation = 'horizontal'
+
+    def build_vbox(self):
+        layout = BoxLayout(orientation='vertical')
 
     def __init__(self, text, **kwargs):
         super(AlarmWidget,self).__init__(**kwargs)
