@@ -17,15 +17,9 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.boxlayout import BoxLayout
-#from kivy.uix.gridlayout import GridLayout
 from kivy.clock import Clock
-from kivy.config import Config
 from kivy.core.window import Window
-from kivy.uix.vkeyboard import VKeyboard
 from kivy.uix.spinner import Spinner
-
-Config.set('kivy', 'keyboard_mode', 'dock')
-Config.set('kivy', 'keyboard_layout', 'numeric.json')
 
 ## custom button that turns the backlight on/off
 class AlarmButton(Button):
@@ -78,8 +72,7 @@ class AlarmButton(Button):
         self.launch_popup()
 
     def __init__(self, **kwargs):
-        super(Button,self).__init__(**kwargs)
-        Window.allow_vkeyboard = True
+        super(AlarmButton,self).__init__(**kwargs)
         self.font_size = self.height/3.0
         self.hour = 12
         self.minute = 0

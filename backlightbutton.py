@@ -16,6 +16,6 @@ class BacklightButton(Button):
     markup = True
 
     def __init__(self, **kwargs):
-        super(Button,self).__init__(**kwargs)
+        super(BacklightButton,self).__init__(**kwargs)
         self.text = "Backlight [b]Off[/b]"
         self.font_size = self.height/3.0

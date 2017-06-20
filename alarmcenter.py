@@ -34,6 +34,7 @@ from timebutton import TimeButton
 from datebutton import DateButton
 from backlightbutton import BacklightButton
 from alarmbutton import AlarmButton
+from alarmwidget import AlarmWidget
 
 # launch as fullscreen application
 # Config.set('graphics', 'fullscreen', 'auto')
@@ -67,13 +68,12 @@ class AlarmCenterApp(App):
         alarm1 = AlarmButton(text='Alarm 1')
         layout.add_widget(alarm1)
 
-        alarm2 = AlarmButton(text='Alarm 2')
+        alarm2 = AlarmWidget(text='Alarm 2')
         layout.add_widget(alarm2)
 
         return layout
 
     def build(self):
-
         # create "root" box layout, where all the action really is...
         root = BoxLayout(orientation='horizontal')
 
