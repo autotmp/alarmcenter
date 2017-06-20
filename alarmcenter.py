@@ -73,21 +73,17 @@ class AlarmCenterApp(App):
         return layout
 
     def build(self):
-        # create floating "root" layout
-        root = FloatLayout()
 
         # create "root" box layout, where all the action really is...
-        broot = BoxLayout(orientation='horizontal')
+        root = BoxLayout(orientation='horizontal')
 
         # build left column
         left = self.build_left()
-        broot.add_widget(left)
+        root.add_widget(left)
 
         # build right column
         right = self.build_right()
-        broot.add_widget(right)
-
-        root.add_widget(broot)
+        root.add_widget(right)
 
         return root
 
