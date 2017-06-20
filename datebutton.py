@@ -20,7 +20,7 @@ class DateButton(Button):
     markup = True
 
     def __update(self, dt):
-        self.text = strftime('%a %b %d %Y')
+        self.text = strftime('[b]%a[/b] %b %d %Y')
         print("DateButton.__update")
 
     def __init__(self, **kwargs):

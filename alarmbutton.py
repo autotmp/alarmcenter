@@ -63,7 +63,7 @@ class AlarmButton(Button):
     def launch_popup(self):
         layout = self.build_set_alarm()
         title = 'Set ' + self.text
-        popup = Popup(title=title, content=layout, size_hint=(0.7, 0.2))
+        popup = Popup(title=title, content=layout, size_hint=(0.7, 0.1))
         popup.bind(on_dismiss=self.update_alarm)
         popup.open()
 

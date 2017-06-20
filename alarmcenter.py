@@ -21,11 +21,11 @@ from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
 # from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
-# from kivy.config import Config
+from kivy.config import Config
 # from kivy.clock import Clock
 # from kivy.properties import StringProperty, NumericProperty, ObjectProperty, BooleanProperty
 # from kivy.uix.textinput import TextInput
-# from kivy.core.window import Window
+from kivy.core.window import Window
 # from kivy.uix.vkeyboard import VKeyboard
 # from kivy.uix.spinner import Spinner
 
@@ -37,7 +37,7 @@ from alarmbutton import AlarmButton
 from alarmwidget import AlarmWidget
 
 # launch as fullscreen application
-# Config.set('graphics', 'fullscreen', 'auto')
+Config.set('graphics', 'fullscreen', 'auto')
 # Config.set('kivy', 'keyboard_mode', 'dock')
 # Config.set('kivy', 'keyboard_layout', 'numeric.json')
 
@@ -65,11 +65,11 @@ class AlarmCenterApp(App):
         # create right column
         layout = BoxLayout(orientation='vertical')
 
-        layout.add_widget(Label(text='Alarm 1', size_hint=(1.0,0.1)))
+        layout.add_widget(Label(text='[b]Alarm 1[/b]', size_hint=(1.0,0.1), markup='True'))
         alarm1 = AlarmWidget(text='Alarm 1')
         layout.add_widget(alarm1)
 
-        layout.add_widget(Label(text='Alarm 2', size_hint=(1.0,0.1)))
+        layout.add_widget(Label(text='[b]Alarm 2[/b]', size_hint=(1.0,0.1), markup='True'))
         alarm2 = AlarmWidget(text='Alarm 2')
         layout.add_widget(alarm2)
 
@@ -90,4 +90,5 @@ class AlarmCenterApp(App):
         return root
 
 if __name__ == '__main__':
+    # Window.fullscreen = True
     AlarmCenterApp().run()
