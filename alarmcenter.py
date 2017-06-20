@@ -33,8 +33,9 @@ from kivy.core.window import Window
 from timebutton import TimeButton
 from datebutton import DateButton
 from backlightbutton import BacklightButton
-from alarmbutton import AlarmButton
+# from alarmbutton import AlarmButton
 from alarmwidget import AlarmWidget
+from weatherbutton import WeatherButton
 
 # launch as fullscreen application
 Config.set('graphics', 'fullscreen', 'auto')
@@ -72,6 +73,10 @@ class AlarmCenterApp(App):
         layout.add_widget(Label(text='[b]Alarm 2[/b]', size_hint=(1.0,0.1), markup='True'))
         alarm2 = AlarmWidget(text='Alarm 2')
         layout.add_widget(alarm2)
+
+        # layout.add_widget(Label(text='[b]Weather[/b]', size_hint=(1.0,0.1), markup='True'))
+        weather = WeatherButton(text='Weather')
+        layout.add_widget(weather)
 
         return layout
 
