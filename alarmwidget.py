@@ -24,8 +24,52 @@ from kivy.uix.spinner import Spinner
 class AlarmWidget(BoxLayout):
     orientation = 'horizontal'
 
-    def build_vbox(self):
-        layout = BoxLayout(orientation='vertical')
+    def build_alarm_popup(self):
+        layout = BoxLayout(orientation='horizontal')
+
+        hspin = Spinner(text=str(self.hour), values=list(map(str, list(range(1, 25)))))
+        hspin.bind(text=self.set_hour)
+        mspin = Spinner(text=str(self.minute), values=list(map(str, list(range(1, 60)))))
+        mspin.bind(text=self.set_minute)
+
+        layout.add_widget(hspin)
+        layout.add_widget(mspin)
+
+        return layout
+
+    def set_hour(self, instance, value):
+        print('hour = ', self.hour)
+        self.hour = value
+
+    def set_minute(self, instance, value):
+        print('minute = ', self.minute)
+        self.minute = value
+
+    def launch_alarm_popup(self, instance):
+        widget = self.build_alarm_popup()
+        title = 'Set ' + self.text
+        popup = Popup(title=title, content=widget, size_hint=(0.7, 0.2))
+        popup.bind(on_dismiss=self.update_alarm)
+        popup.open()
+
+    def build_alarm_button(self):
+        button = Button(text=self.text, font_size=(self.height/3.0), markup='True', size_hint=(1.0,1.0))
+        button.bind(on_press=self.launch_alarm_popup)
+        return button
+
+    def build_enable_button(self):
+        button = ToggleButton(size_hint=(0.3,1.0))
+        button.bind(state=self.toggle_alarm)
+        return button
+
+    def update_alarm(self, instance):
+        print("popup dismissed")
+        alarm = datetime.time(int(self.hour), int(self.minute))
+        self.alarm.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
+        print(alarm)
+
+    def toggle_alarm(self, instance, value):
+        print("toggle alarm", value)
 
     def __init__(self, text, **kwargs):
         super(AlarmWidget,self).__init__(**kwargs)
@@ -34,9 +78,8 @@ class AlarmWidget(BoxLayout):
         self.minute = 0
         self.text = text
 
-        self.vbox = BoxLayout(orientation='vertical')
+        self.alarm = self.build_alarm_button()
+        self.enable = self.build_enable_button()
 
-        self.alarm = Button(text=text, font_size=(self.height/3.0), markup='True')
-        self.vbox.add_widget(self.alarm)
-
-        self.add_widget(self.vbox)
+        self.add_widget(self.alarm)
+        self.add_widget(self.enable)
