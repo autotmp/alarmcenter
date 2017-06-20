@@ -54,10 +54,10 @@ class AlarmCenterApp(App):
         timebutton = TimeButton(text='Time', size_hint=(1.0, 1.0))
         layout.add_widget(timebutton)
 
-        datebutton = DateButton(text='Date', size_hint=(1.0, 1.0))
+        datebutton = DateButton(text='Date', size_hint=(1.0, 0.4))
         layout.add_widget(datebutton)
 
-        backlightbutton = BacklightButton(size_hint=(1.0,1.0))
+        backlightbutton = BacklightButton(size_hint=(1.0,0.4))
         layout.add_widget(backlightbutton)
         return layout
 
@@ -65,9 +65,11 @@ class AlarmCenterApp(App):
         # create right column
         layout = BoxLayout(orientation='vertical')
 
-        alarm1 = AlarmButton(text='Alarm 1')
+        layout.add_widget(Label(text='Alarm 1', size_hint=(1.0,0.1)))
+        alarm1 = AlarmWidget(text='Alarm 1')
         layout.add_widget(alarm1)
 
+        layout.add_widget(Label(text='Alarm 2', size_hint=(1.0,0.1)))
         alarm2 = AlarmWidget(text='Alarm 2')
         layout.add_widget(alarm2)
 
