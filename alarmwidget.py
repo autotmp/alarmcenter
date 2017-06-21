@@ -7,6 +7,7 @@
 import datetime
 import time
 from time import strftime
+import sched
 
 import kivy
 kivy.require('1.10.0')
@@ -62,10 +63,15 @@ class AlarmWidget(BoxLayout):
         button.bind(state=self.toggle_alarm)
         return button
 
+    def get_up(self):
+        print("get up")
+
     def update_alarm(self, instance):
         print("popup dismissed")
         alarm = datetime.time(int(self.hour), int(self.minute))
         self.alarm.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
+        scheduler = sched.scheduler(time.time, time.sleep)
+        scheduler.enterabs(alarm, 1, self.get_up, ())
         print(alarm)
 
     def toggle_alarm(self, instance, value):

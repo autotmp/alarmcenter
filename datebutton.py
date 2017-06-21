@@ -21,7 +21,7 @@ class DateButton(Button):
 
     def __update(self, dt):
         self.text = strftime('[b]%a[/b] %b %d %Y')
-        print("DateButton.__update")
+        # print("DateButton.__update")
 
     def __init__(self, **kwargs):
         super(DateButton,self).__init__(**kwargs)

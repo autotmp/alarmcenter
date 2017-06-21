@@ -34,3 +34,4 @@ class WeatherButton(Button):
         super(WeatherButton,self).__init__(**kwargs)
         self.font_size = self.height/3.0
         Clock.schedule_interval(self.__update, 10.0)
+        self.__update(0)
