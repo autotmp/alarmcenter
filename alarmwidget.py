@@ -48,7 +48,7 @@ class AlarmWidget(BoxLayout):
 
     def launch_alarm_popup(self, instance):
         widget = self.build_alarm_popup()
-        title = 'Set ' + self.text
+        title = 'Set ' + self.name
         popup = Popup(title=title, content=widget, size_hint=(0.7, 0.2))
         popup.bind(on_dismiss=self.update_alarm)
         popup.open()
@@ -70,19 +70,27 @@ class AlarmWidget(BoxLayout):
         print("popup dismissed")
         alarm = datetime.time(int(self.hour), int(self.minute))
         self.alarm.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
-        scheduler = sched.scheduler(time.time, time.sleep)
-        scheduler.enterabs(alarm, 1, self.get_up, ())
         print(alarm)
 
     def toggle_alarm(self, instance, value):
         print("toggle alarm", value)
 
-    def __init__(self, text, **kwargs):
+        if value == 'down':
+            alarm = datetime.time(int(self.hour), int(self.minute))
+            self.event = self.scheduler.enterabs(alarm, 1, self.get_up, ())
+        else:
+            self.scheduler.cancel(self.event)
+
+
+    def __init__(self, name, **kwargs):
         super(AlarmWidget,self).__init__(**kwargs)
 
         self.hour = 12
         self.minute = 0
-        self.text = text
+        self.name = name
+        alarm = datetime.time(int(self.hour), int(self.minute))
+        self.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
+        self.scheduler = sched.scheduler(time.time, time.sleep)
 
         self.alarm = self.build_alarm_button()
         self.enable = self.build_enable_button()

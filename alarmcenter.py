@@ -67,11 +67,11 @@ class AlarmCenterApp(App):
         layout = BoxLayout(orientation='vertical')
 
         layout.add_widget(Label(text='[b]Alarm 1[/b]', size_hint=(1.0,0.1), markup='True'))
-        alarm1 = AlarmWidget(text='Alarm 1')
+        alarm1 = AlarmWidget(name='Alarm 1')
         layout.add_widget(alarm1)
 
         layout.add_widget(Label(text='[b]Alarm 2[/b]', size_hint=(1.0,0.1), markup='True'))
-        alarm2 = AlarmWidget(text='Alarm 2')
+        alarm2 = AlarmWidget(name='Alarm 2')
         layout.add_widget(alarm2)
 
         # layout.add_widget(Label(text='[b]Weather[/b]', size_hint=(1.0,0.1), markup='True'))
