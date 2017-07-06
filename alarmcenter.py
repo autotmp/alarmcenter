@@ -10,6 +10,7 @@
 # from functools import partial
 
 import kivy
+import threading
 kivy.require('1.10.0')
 
 ## kivy imports
@@ -79,6 +80,12 @@ class AlarmCenterApp(App):
         layout.add_widget(weather)
 
         return layout
+
+    def on_stop(self):
+        # The Kivy event loop is about to stop, set a stop signal;
+        # otherwise the app window will close, but the Python process will
+        # keep running until all secondary threads exit.
+        print("stop operations")
 
     def build(self):
         # create "root" box layout, where all the action really is...

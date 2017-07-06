@@ -19,13 +19,13 @@ from kivy.clock import Clock
 class TimeButton(Button):
     markup = True
 
-    def __update(self, dt):
+    def _update(self, dt):
         self.text = "[b]" + strftime('%H')
         self.text += strftime(':%M') + "[/b]"
         self.text += strftime(':%S')
-        # print("TimeButton.__update")
+        print("TimeButton._update")
 
     def __init__(self, **kwargs):
         super(Button,self).__init__(**kwargs)
         self.font_size = self.height/1.5
-        Clock.schedule_interval(self.__update, 1.0)
+        self.event = Clock.schedule_interval(self._update, 1.0)

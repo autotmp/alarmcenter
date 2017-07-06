@@ -78,9 +78,13 @@ class AlarmWidget(BoxLayout):
         if value == 'down':
             alarm = datetime.time(int(self.hour), int(self.minute))
             self.event = self.scheduler.enterabs(alarm, 1, self.get_up, ())
+            print("schedule alarm")
         else:
             self.scheduler.cancel(self.event)
 
+    def on_stop(self):
+        print("AlarmWidget " + self.name + "stopping operations")
+        self.schedulers.cancel(self.event)
 
     def __init__(self, name, **kwargs):
         super(AlarmWidget,self).__init__(**kwargs)
@@ -91,6 +95,7 @@ class AlarmWidget(BoxLayout):
         alarm = datetime.time(int(self.hour), int(self.minute))
         self.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
         self.scheduler = sched.scheduler(time.time, time.sleep)
+        self.scheduler.run()
 
         self.alarm = self.build_alarm_button()
         self.enable = self.build_enable_button()

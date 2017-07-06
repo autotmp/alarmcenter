@@ -19,11 +19,11 @@ from kivy.clock import Clock
 class DateButton(Button):
     markup = True
 
-    def __update(self, dt):
+    def _update(self, dt):
         self.text = strftime('[b]%a[/b] %b %d %Y')
-        # print("DateButton.__update")
+        print("DateButton._update")
 
     def __init__(self, **kwargs):
         super(DateButton,self).__init__(**kwargs)
         self.font_size = self.height/3.0
-        Clock.schedule_interval(self.__update, 1.0)
+        Clock.schedule_interval(self._update, 1.0)

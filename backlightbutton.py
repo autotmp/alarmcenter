@@ -17,13 +17,13 @@ class BacklightButton(Button):
     markup = True
 
     def backlight_on(self, instance):
-        print "Backlight ON"
+        print("Backlight ON")
 
         # with open("/sys/class/backlight/rpi_backlight/bl_power", "w") as text_file:
         #     text_file.write("1")
 
     def backlight_off(self):
-        print "Backlight OFF"
+        print("Backlight OFF")
 
         # with open("/sys/class/backlight/rpi_backlight/bl_power", "w") as text_file:
         #     text_file.write("0")
