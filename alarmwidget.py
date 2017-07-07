@@ -8,6 +8,7 @@ import datetime
 import time
 from time import strftime
 import sched
+from apscheduler.schedulers.background import BackgroundScheduler
 
 import kivy
 kivy.require('1.10.0')
@@ -24,13 +25,15 @@ from kivy.uix.spinner import Spinner
 
 class AlarmWidget(BoxLayout):
     orientation = 'horizontal'
+    hour = 12
+    minutes = 0
 
     def build_alarm_popup(self):
         layout = BoxLayout(orientation='horizontal')
 
         hspin = Spinner(text=str(self.hour), values=list(map(str, list(range(1, 25)))))
         hspin.bind(text=self.set_hour)
-        mspin = Spinner(text=str(self.minute), values=list(map(str, list(range(1, 60)))))
+        mspin = Spinner(text=str(self.minutes), values=list(map(str, list(range(1, 60)))))
         mspin.bind(text=self.set_minute)
 
         layout.add_widget(hspin)
@@ -39,12 +42,10 @@ class AlarmWidget(BoxLayout):
         return layout
 
     def set_hour(self, instance, value):
-        print('hour = ', self.hour)
         self.hour = value
 
     def set_minute(self, instance, value):
-        print('minute = ', self.minute)
-        self.minute = value
+        self.minutes = value
 
     def launch_alarm_popup(self, instance):
         widget = self.build_alarm_popup()
@@ -63,42 +64,44 @@ class AlarmWidget(BoxLayout):
         button.bind(state=self.toggle_alarm)
         return button
 
-    def get_up(self):
-        print("get up")
+    def wakeup(self):
+        print("get up " + self.name)
 
     def update_alarm(self, instance):
-        print("popup dismissed")
-        alarm = datetime.time(int(self.hour), int(self.minute))
+        # update the displayed time
+        alarm = datetime.time(int(self.hour), int(self.minutes))
         self.alarm.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
-        print(alarm)
+
+        # check the alarm is currently on, if enabled (`down`) then remove the
+        # current job and schedule a new one
+        if self.enable.state == 'down':
+            self.scheduler.reschedule_job(self.name, trigger='cron', hour=int(self.hour), minute=(self.minutes), day_of_week="mon-sun")
 
     def toggle_alarm(self, instance, value):
-        print("toggle alarm", value)
-
         if value == 'down':
-            alarm = datetime.time(int(self.hour), int(self.minute))
-            self.event = self.scheduler.enterabs(alarm, 1, self.get_up, ())
-            print("schedule alarm")
+            self.scheduler.add_job(self.wakeup, 'cron', hour=int(self.hour), minute=(self.minutes), day_of_week="mon-sun", id=self.name)
         else:
-            self.scheduler.cancel(self.event)
+            self.scheduler.remove_job(self.name)
 
     def on_stop(self):
         print("AlarmWidget " + self.name + "stopping operations")
-        self.schedulers.cancel(self.event)
+        self.scheduler.remove_job(self.name)
 
     def __init__(self, name, **kwargs):
         super(AlarmWidget,self).__init__(**kwargs)
 
-        self.hour = 12
-        self.minute = 0
         self.name = name
-        alarm = datetime.time(int(self.hour), int(self.minute))
-        self.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
-        self.scheduler = sched.scheduler(time.time, time.sleep)
-        self.scheduler.run()
 
+        # set initial display
+        alarm = datetime.time(int(self.hour), int(self.minutes))
+        self.text = "[b]" + alarm.strftime('%H:%M') + "[/b]"
+
+        # create and start scheduler
+        self.scheduler = BackgroundScheduler()
+        self.scheduler.start()
+
+        # create widgets and dadd to layout
         self.alarm = self.build_alarm_button()
         self.enable = self.build_enable_button()
-
         self.add_widget(self.alarm)
         self.add_widget(self.enable)
