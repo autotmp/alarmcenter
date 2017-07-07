@@ -20,15 +20,14 @@ class WeatherButton(Button):
     def _update(self, dt):
         self.text = 'asdf'
 
-        # f = urllib3.urlopen('http://api.wunderground.com/api/cdb8e4841f7edece/geolookup/conditions/q/FL/Orlando.json')
-        # json_string = f.read()
-        # parsed_json = json.loads(json_string)
-        # location = parsed_json['location']['city']
-        # temp_f = parsed_json['current_observation']['temperature_string']
-        # self.text = ("[b]%s[/b] %s" % (location, temp_f))
-        # f.close()
-
-        print("WeatherButton._update")
+        http = urllib3.PoolManager()
+        response = http.request('GET', 'http://api.wunderground.com/api/cdb8e4841f7edece/geolookup/conditions/q/FL/Orlando.json')
+        json_string = response.data.decode('utf8')
+        parsed_json = json.loads(json_string)
+        location = parsed_json['location']['city']
+        temp_f = parsed_json['current_observation']['temperature_string']
+        self.text = ("[b]%s[/b] %s" % (location, temp_f))
+        response.close()
 
     def __init__(self, **kwargs):
         super(WeatherButton,self).__init__(**kwargs)
