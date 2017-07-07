@@ -23,7 +23,6 @@ class TimeButton(Button):
         self.text = "[b]" + strftime('%H')
         self.text += strftime(':%M') + "[/b]"
         self.text += strftime(':%S')
-        print("TimeButton._update")
 
     def __init__(self, **kwargs):
         super(Button,self).__init__(**kwargs)
