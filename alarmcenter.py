@@ -3,12 +3,6 @@
 # Copyright 2017 Shaun Thompson <shaun.b.thompson@gmail.com>
 #
 
-## python imports
-# import datetime
-# import time
-# from time import strftime
-# from functools import partial
-
 import kivy
 import threading
 kivy.require('1.10.0')
@@ -18,36 +12,24 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-# from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.floatlayout import FloatLayout
-# from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.config import Config
-# from kivy.clock import Clock
-# from kivy.properties import StringProperty, NumericProperty, ObjectProperty, BooleanProperty
-# from kivy.uix.textinput import TextInput
 from kivy.core.window import Window
-# from kivy.uix.vkeyboard import VKeyboard
-# from kivy.uix.spinner import Spinner
+
 
 ## custom imports
 from timebutton import TimeButton
 from datebutton import DateButton
 from backlightbutton import BacklightButton
-# from alarmbutton import AlarmButton
 from alarmwidget import AlarmWidget
 from weatherbutton import WeatherButton
 
 # launch as fullscreen application
 Config.set('graphics', 'fullscreen', 'auto')
-# Config.set('kivy', 'keyboard_mode', 'dock')
-# Config.set('kivy', 'keyboard_layout', 'numeric.json')
 
 # main
 class AlarmCenterApp(App):
-
-    def if_root(self):
-        print("i am root")
 
     def build_left(self):
         # create left column
@@ -75,17 +57,16 @@ class AlarmCenterApp(App):
         alarm2 = AlarmWidget(name='Alarm 2')
         layout.add_widget(alarm2)
 
-        # layout.add_widget(Label(text='[b]Weather[/b]', size_hint=(1.0,0.1), markup='True'))
         weather = WeatherButton(text='Weather')
         layout.add_widget(weather)
 
         return layout
 
-    def on_stop(self):
-        # The Kivy event loop is about to stop, set a stop signal;
-        # otherwise the app window will close, but the Python process will
-        # keep running until all secondary threads exit.
-        print("stop operations")
+    # def on_stop(self):
+    #     # The Kivy event loop is about to stop, set a stop signal;
+    #     # otherwise the app window will close, but the Python process will
+    #     # keep running until all secondary threads exit.
+    #     print("stop operations")
 
     def build(self):
         # create "root" box layout, where all the action really is...
