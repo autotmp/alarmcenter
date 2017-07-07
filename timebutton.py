@@ -14,6 +14,7 @@ kivy.require('1.10.0')
 ## kivy imports
 from kivy.uix.button import Button
 from kivy.clock import Clock
+from kivy.logger import Logger
 
 ## custom button that displays current time
 class TimeButton(Button):
@@ -28,3 +29,4 @@ class TimeButton(Button):
         super(Button,self).__init__(**kwargs)
         self.font_size = self.height/1.5
         self.event = Clock.schedule_interval(self._update, 1.0)
+        Logger.info('TimeButton Clock.schedule_interval for 1.0')

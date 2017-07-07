@@ -19,9 +19,10 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.boxlayout import BoxLayout
-from kivy.clock import Clock
+# from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.spinner import Spinner
+from kivy.logger import Logger
 
 class AlarmWidget(BoxLayout):
     orientation = 'horizontal'
@@ -83,9 +84,9 @@ class AlarmWidget(BoxLayout):
         else:
             self.scheduler.remove_job(self.name)
 
-    def on_stop(self):
-        print("AlarmWidget " + self.name + "stopping operations")
-        self.scheduler.remove_job(self.name)
+    # def on_stop(self):
+    #     print("AlarmWidget " + self.name + "stopping operations")
+    #     self.scheduler.remove_job(self.name)
 
     def __init__(self, name, **kwargs):
         super(AlarmWidget,self).__init__(**kwargs)

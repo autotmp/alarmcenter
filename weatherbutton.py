@@ -12,13 +12,14 @@ kivy.require('1.10.0')
 ## kivy imports
 from kivy.uix.button import Button
 from kivy.clock import Clock
+from kivy.logger import Logger
 
 ## custom button that displays weather for selected loation
 class WeatherButton(Button):
     markup = True
 
     def _update(self, dt):
-        self.text = 'asdf'
+        self.text = 'Weather'
 
         http = urllib3.PoolManager()
         response = http.request('GET', 'http://api.wunderground.com/api/cdb8e4841f7edece/geolookup/conditions/q/FL/Orlando.json')
@@ -34,3 +35,4 @@ class WeatherButton(Button):
         self.font_size = self.height/3.0
         Clock.schedule_interval(self._update, 10.0)
         self._update(0)
+        Logger.info('WeatherButton Clock.schedule_interval for 10.0')

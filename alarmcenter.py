@@ -16,7 +16,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.config import Config
 from kivy.core.window import Window
-
+from kivy.logger import Logger
 
 ## custom imports
 from timebutton import TimeButton
@@ -59,7 +59,6 @@ class AlarmCenterApp(App):
 
         weather = WeatherButton(text='Weather')
         layout.add_widget(weather)
-
         return layout
 
     # def on_stop(self):

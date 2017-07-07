@@ -11,6 +11,7 @@ kivy.require('1.10.0')
 ## kivy imports
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
+from kivy.logger import Logger
 
 ## custom button that turns the backlight on/off
 class BacklightButton(Button):
@@ -39,7 +40,6 @@ class BacklightButton(Button):
         popup.open()
 
     def on_press(self):
-        print("AlarmButton pressed")
         self.launch_popup()
 
     def __init__(self, **kwargs):
