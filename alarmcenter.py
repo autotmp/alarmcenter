@@ -26,9 +26,13 @@ from alarmwidget import AlarmWidget
 from weatherbutton import WeatherButton
 
 # launch as fullscreen application
-#Config.set('graphics', 'fullscreen', 'auto')
-Config.read('kivyconfig.ini')
-Config.write()
+Config.set('graphics', 'fullscreen', 'auto')
+Config.set('kivy', 'log_dir', 'logs')
+Config.set('kivy', 'log_enable', '1')
+Config.set('kivy', 'log_level', 'info')
+Config.set('kivy', 'log_name', 'alarmcenter_%y-%m-%d-%_.txt')
+#Config.read('kivyconfig.ini')
+#Config.write()
 
 # main
 class AlarmCenterApp(App):
