@@ -77,6 +77,24 @@ Pull Kivy from GitHub
 ```bash
 sudo pip3 install git+https://github.com/kivy/kivy.git@master
 ```
+
+## Enable the Touchscreen
+
+After running any Kivy application a `.kivy` folder is placed in `~`. The `config.ini` file needs to be modified so the touch screen can work
+
+```bash
+$ nano ~/.kivy/config.ini
+```
+
+Head to the `[input]` section and replace the contents with
+```bash
+[input]
+mouse = mouse
+mtdev_%(name)s = probesysfs,provider=mtdev
+hid_%(name)s = probesysfs,provider=hidinput
+```
+
+Source [mrichardson23/rpi-kivy-screen](https://github.com/mrichardson23/rpi-kivy-screen)
 # Running **AlarmCenter**
 For now packaging isn't a concern so a local Kivy install (global or virtual) is required. Clone and go
 
