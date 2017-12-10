@@ -18,7 +18,7 @@ Initial development environment. Assume that **Homebrew** is installed on the ta
 $ brew install python3 pkg-config sdl2 sdl2_image sdl2_ttf sdl2_mixer gstreamer
 ```
 
-## Raspberry Pi (Raspbain OS)
+## Raspberry Pi (Raspbian OS)
 Thankfully we've got a proper package manager in this environment. Just a few `apt-get` calls and we're in good shape. Once again the [installation instructions on the Kivy](https://kivy.org/docs/installation/installation-rpi.html) site get us most of the way there. The only modification is the installation of `python3` thrown into the mix. Maybe there are a few packages we don't need?
 
 ```bash
@@ -29,15 +29,43 @@ $ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-t
    python-setuptools libgstreamer1.0-dev git-core \
    gstreamer1.0-plugins-{bad,base,good,ugly} \
    gstreamer1.0-{omx,alsa} python-dev libmtdev-dev \
-   xclip
+   xclip python3-pip
 ```
+
+### Wifi Setup - Lite/Console
+When setting up wifi on the lite/console Raspbian OS the wpa_supplicant.conf file needs network info.
+
+```bash
+$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
+```bash
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+  ssid="NETWORK_NAME"
+  psk="NETWORK_PASSWORD"
+}
+```
+
+then a `sudo reboot` to apply settings
+
+### Keyboard Mappings
+On the initial boot of Raspbian Stretch Lite some of the keys weren't quite mapped correct. This was fixed by editing the `/etc/default/keyboard` file
+
+```bash
+$ sudo nano /etc/default/keyboard
+```
+
+and setting `XKBMODEL=""` and `XKBLAYOUT="us"` -- luckily the `"` was already there
 
 ## Installing Kivy and Support Libraries
 Assuming we've got the house all setup, we can install Kivy and the other libraries used in the project.
 
 Installing Kivy
 ```bash
-$ pip3 install cython kivy
+$ pip3 install Cython kivy
 ```
 
 Installing additional libraries
@@ -45,6 +73,10 @@ Installing additional libraries
 $ pip3 install apscheduler urllib3
 ```
 
+Pull Kivy from GitHub
+```bash
+sudo pip3 install git+https://github.com/kivy/kivy.git@master
+```
 # Running **AlarmCenter**
 For now packaging isn't a concern so a local Kivy install (global or virtual) is required. Clone and go
 
