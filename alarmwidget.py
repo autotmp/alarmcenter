@@ -32,9 +32,9 @@ class AlarmWidget(BoxLayout):
     def build_alarm_popup(self):
         layout = BoxLayout(orientation='horizontal')
 
-        hspin = Spinner(text=str(self.hour), values=list(map(str, list(range(1, 25)))))
+        hspin = Spinner(text=str(self.hour), values=list(map(str, list(range(1, 25)))), sync_height=True)
         hspin.bind(text=self.set_hour)
-        mspin = Spinner(text=str(self.minutes), values=list(map(str, list(range(1, 60)))))
+        mspin = Spinner(text=str(self.minutes), values=list(map(str, list(range(1, 60)))), sync_height=True)
         mspin.bind(text=self.set_minute)
 
         layout.add_widget(hspin)
@@ -51,7 +51,8 @@ class AlarmWidget(BoxLayout):
     def launch_alarm_popup(self, instance):
         widget = self.build_alarm_popup()
         title = 'Set ' + self.name
-        popup = Popup(title=title, content=widget, size_hint=(0.7, 0.2))
+        popup = Popup(title=title, content=widget, size_hint=(0.7, 0.2), 
+            pos_hint={'y' : 35.0 / Window.height})
         popup.bind(on_dismiss=self.update_alarm)
         popup.open()
 
