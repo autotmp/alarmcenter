@@ -55,13 +55,13 @@ class AlarmCenterApp(App):
         # create right column
         layout = BoxLayout(orientation='vertical')
 
-        layout.add_widget(Label(text='[b]Alarm 1[/b]', size_hint=(1.0,0.1), markup='True'))
         alarm1 = AlarmWidget(name='Alarm 1')
         layout.add_widget(alarm1)
+        #layout.add_widget(Label(text='[b]Alarm 1[/b]', size_hint=(1.0,0.1), markup='True'))
 
-        layout.add_widget(Label(text='[b]Alarm 2[/b]', size_hint=(1.0,0.1), markup='True'))
         alarm2 = AlarmWidget(name='Alarm 2')
         layout.add_widget(alarm2)
+        #layout.add_widget(Label(text='[b]Alarm 2[/b]', size_hint=(1.0,0.1), markup='True'))
 
         weather = WeatherButton(text='Weather')
         layout.add_widget(weather)
