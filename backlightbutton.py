@@ -4,6 +4,7 @@
 #
 
 ## python imports
+from pathlib import Path
 
 import kivy
 kivy.require('1.10.0')
@@ -16,18 +17,21 @@ from kivy.logger import Logger
 ## custom button that turns the backlight on/off
 class BacklightButton(Button):
     markup = True
+    bl_power = "/sys/class/backlight/rpi_backlight/bl_power"
 
     def backlight_on(self, instance):
         print("Backlight ON")
 
-        # with open("/sys/class/backlight/rpi_backlight/bl_power", "w") as text_file:
-        #     text_file.write("1")
+        if Path(self.bl_power).exists():
+             with open(self.bl_power, "w") as text_file:
+                text_file.write("0")
 
     def backlight_off(self):
         print("Backlight OFF")
 
-        # with open("/sys/class/backlight/rpi_backlight/bl_power", "w") as text_file:
-        #     text_file.write("0")
+        if Path(self.bl_power).exists():
+             with open(self.bl_power, "w") as text_file:
+                text_file.write("1")
 
     def launch_popup(self):
         button = Button()
