@@ -27,6 +27,6 @@ class TimeButton(Button):
 
     def __init__(self, **kwargs):
         super(Button,self).__init__(**kwargs)
-        self.font_size = self.height/1.5
+        self.font_size = self.height/1.2
         self.event = Clock.schedule_interval(self._update, 1.0)
         Logger.info('TimeButton Clock.schedule_interval for 1.0')
