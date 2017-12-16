@@ -19,10 +19,15 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.boxlayout import BoxLayout
-# from kivy.clock import Clock
 from kivy.core.window import Window
-from kivy.uix.spinner import Spinner
+from kivy.uix.spinner import Spinner, SpinnerOption
 from kivy.logger import Logger
+
+class SpinnerButton(SpinnerOption):
+    def __init__(self, text, **kwargs):
+        super(SpinnerOption, self).__init__()
+        self.font_size = self.height
+        self.text = text
 
 class AlarmWidget(BoxLayout):
     orientation = 'horizontal'
@@ -32,13 +37,24 @@ class AlarmWidget(BoxLayout):
     def build_alarm_popup(self):
         layout = BoxLayout(orientation='horizontal')
 
-        hspin = Spinner(text=str(self.hour), values=list(map(str, list(range(1, 25)))), sync_height=True)
-        hspin.bind(text=self.set_hour)
-        mspin = Spinner(text=str(self.minutes), values=list(map(str, list(range(1, 60)))), sync_height=True)
-        mspin.bind(text=self.set_minute)
+        hourspin = Spinner(text=str(self.hour), 
+                           values=list(map(str, list(range(1, 25)))), 
+                           sync_height=True, 
+                           font_size=(self.height/4.0), 
+                           option_cls=SpinnerButton)
 
-        layout.add_widget(hspin)
-        layout.add_widget(mspin)
+        hourspin.bind(text=self.set_hour)
+
+        minspin = Spinner(text=str(self.minutes), 
+                          values=list(map(str, list(range(1, 60)))), 
+                          sync_height=True, 
+                          font_size=(self.height/4.0), 
+                          option_cls=SpinnerButton)
+
+        minspin.bind(text=self.set_minute)
+
+        layout.add_widget(hourspin)
+        layout.add_widget(minspin)
 
         return layout
 
@@ -51,13 +67,13 @@ class AlarmWidget(BoxLayout):
     def launch_alarm_popup(self, instance):
         widget = self.build_alarm_popup()
         title = 'Set ' + self.name
-        popup = Popup(title=title, content=widget, size_hint=(0.7, 0.2), 
+        popup = Popup(title=title, content=widget, size_hint=(0.7, 0.3), 
             pos_hint={'y' : 35.0 / Window.height})
         popup.bind(on_dismiss=self.update_alarm)
         popup.open()
 
     def build_alarm_button(self):
-        button = Button(text=self.text, font_size=(self.height/3.0), markup='True', size_hint=(1.0,1.0))
+        button = Button(text=self.text, font_size=(self.height/3.0), markup='True', size_hint=(1.0, 1.0))
         button.bind(on_press=self.launch_alarm_popup)
         return button
 
