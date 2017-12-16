@@ -73,7 +73,7 @@ class AlarmWidget(BoxLayout):
         popup.open()
 
     def build_alarm_button(self):
-        button = Button(text=self.text, font_size=(self.height/3.0), markup='True', size_hint=(1.0, 1.0))
+        button = Button(text=self.text, font_size=(self.height/1.5), markup='True', size_hint=(1.0, 1.0))
         button.bind(on_press=self.launch_alarm_popup)
         return button
 
