@@ -14,24 +14,14 @@ from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.logger import Logger
 
+import backlight as bl
+
 ## custom button that turns the backlight on/off
 class BacklightButton(Button):
     markup = True
-    bl_power = "/sys/class/backlight/rpi_backlight/bl_power"
 
     def backlight_on(self, instance):
-        print("Backlight ON")
-
-        if Path(self.bl_power).exists():
-             with open(self.bl_power, "w") as text_file:
-                text_file.write("0")
-
-    def backlight_off(self):
-        print("Backlight OFF")
-
-        if Path(self.bl_power).exists():
-             with open(self.bl_power, "w") as text_file:
-                text_file.write("1")
+        bl.backlight_on()
 
     def launch_popup(self):
         button = Button()
@@ -40,7 +30,7 @@ class BacklightButton(Button):
         popup.bind(on_dismiss=self.backlight_on)
         button.bind(on_press=popup.dismiss)
 
-        self.backlight_off()
+        bl.backlight_off()
         popup.open()
 
     def on_press(self):
