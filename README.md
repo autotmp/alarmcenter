@@ -101,3 +101,12 @@ For now packaging isn't a concern so a local Kivy install (global or virtual) is
 ```bash
 python3 alarmcenter.py
 ```
+
+## GPIO Wiring
+
+| Wire Color | Touch  | Pi 3   |
+| :--------- | :----- | :----- |
+| Red        | Pin 01 | Pin 02 |
+| Green      | Pin 03 | Pin 03 |
+| Yellow		 | Pin 04 | Pin 05 |
+| Black      | Pin 05 | Pin 06 |
