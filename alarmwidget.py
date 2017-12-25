@@ -78,7 +78,7 @@ class AlarmWidget(BoxLayout):
         return button
 
     def build_enable_button(self):
-        button = ToggleButton(size_hint=(0.3,1.0))
+        button = ToggleButton(size_hint=(0.2,1.0))
         button.bind(state=self.toggle_alarm)
         return button
 
