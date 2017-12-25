@@ -37,53 +37,51 @@ Config.set('kivy', 'log_name', 'alarmcenter_%y-%m-%d-%_.txt')
 # main
 class AlarmCenterApp(App):
 
-    def build_left(self):
-        # create left column
-        layout = BoxLayout(orientation='vertical')
-
-        timebutton = TimeButton(text='Time', size_hint=(1.0, 1.0))
-        layout.add_widget(timebutton)
-
-        datebutton = DateButton(text='Date', size_hint=(1.0, 0.4))
-        layout.add_widget(datebutton)
-
-        backlightbutton = BacklightButton(size_hint=(1.0,0.4))
-        layout.add_widget(backlightbutton)
-        return layout
-
-    def build_right(self):
-        # create right column
-        layout = BoxLayout(orientation='vertical')
-
-        alarm1 = AlarmWidget(name='Alarm 1')
-        layout.add_widget(alarm1)
-        #layout.add_widget(Label(text='[b]Alarm 1[/b]', size_hint=(1.0,0.1), markup='True'))
-
-        alarm2 = AlarmWidget(name='Alarm 2')
-        layout.add_widget(alarm2)
-        #layout.add_widget(Label(text='[b]Alarm 2[/b]', size_hint=(1.0,0.1), markup='True'))
-
-        weather = WeatherButton(text='Weather')
-        layout.add_widget(weather)
-        return layout
-
     # def on_stop(self):
     #     # The Kivy event loop is about to stop, set a stop signal;
     #     # otherwise the app window will close, but the Python process will
     #     # keep running until all secondary threads exit.
     #     print("stop operations")
 
+    def build_alarm_stack(self):
+        layout = BoxLayout(orientation='vertical')
+
+        alarm1 = AlarmWidget(name='Alarm 1', size_hint=(1.0, 1.0))
+        layout.add_widget(alarm1)
+
+        alarm2 = AlarmWidget(name='Alarm 2', size_hint=(1.0, 1.0))
+        layout.add_widget(alarm2)
+        return layout
+
+    def build_date_stack(self):
+        layout = BoxLayout(orientation='vertical')
+
+        datebutton = DateButton(text='Date', size_hint=(1.0, 1.0))
+        layout.add_widget(datebutton)
+
+        weather = WeatherButton(text='Weather', size_hint=(1.0, 1.0))
+        layout.add_widget(weather)
+        return layout
+
     def build(self):
-        # create "root" box layout, where all the action really is...
-        root = BoxLayout(orientation='horizontal')
+        # create "root" layout
+        root = BoxLayout(orientation='vertical')
 
-        # build left column
-        left = self.build_left()
-        root.add_widget(left)
+        # create "TIME" button
+        timebutton = TimeButton(text='Time', size_hint=(1.0, 1.0))
+        root.add_widget(timebutton)
 
-        # build right column
-        right = self.build_right()
-        root.add_widget(right)
+        # create "MIDDLE" layout
+        middle = BoxLayout(orientation='horizontal')
+        datestack = self.build_date_stack()
+        middle.add_widget(datestack)
+        alarmstack = self.build_alarm_stack()
+        middle.add_widget(alarmstack)
+        root.add_widget(middle)
+
+        # create "BACKLIGHT" button
+        backlight = BacklightButton(size_hint=(1.0,1.0))
+        root.add_widget(backlight)
 
         return root
 
