@@ -72,14 +72,15 @@ class AlarmWidget(BoxLayout):
         popup.bind(on_dismiss=self.update_alarm)
         popup.open()
 
-    def build_alarm_button(self):
-        button = Button(text=self.text, font_size=(self.height/1.5), markup='True', size_hint=(1.0, 1.0))
-        button.bind(on_press=self.launch_alarm_popup)
+    def build_toggle_button(self):
+        button = ToggleButton(text=self.text, font_size=(self.height/1.5), markup='True', size_hint=(1.0, 1.0))
+        button.bind(state=self.toggle_alarm)
         return button
 
-    def build_enable_button(self):
-        button = ToggleButton(size_hint=(0.2,1.0))
-        button.bind(state=self.toggle_alarm)
+    def build_config_button(self):
+        # ⚙
+        button = Button(size_hint=(0.2,1.0), text=chr(2699))
+        button.bind(on_press=self.launch_alarm_popup)
         return button
 
     def wakeup(self):
@@ -119,7 +120,7 @@ class AlarmWidget(BoxLayout):
         self.scheduler.start()
 
         # create widgets and dadd to layout
-        self.alarm = self.build_alarm_button()
-        self.enable = self.build_enable_button()
+        self.alarm = self.build_toggle_button()
+        self.enable = self.build_config_button()
         self.add_widget(self.alarm)
         self.add_widget(self.enable)

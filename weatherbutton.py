@@ -32,7 +32,7 @@ class WeatherButton(Button):
 
     def __init__(self, **kwargs):
         super(WeatherButton,self).__init__(**kwargs)
-        self.font_size = self.height/3.0
+        self.font_size = self.height/1.5
         Clock.schedule_interval(self._update, 10.0)
         self._update(0)
         Logger.info('WeatherButton Clock.schedule_interval for 10.0')

@@ -80,7 +80,7 @@ class AlarmCenterApp(App):
         root.add_widget(middle)
 
         # create "BACKLIGHT" button
-        backlight = BacklightButton(size_hint=(1.0,1.0))
+        backlight = BacklightButton(size_hint=(1.0,0.3))
         root.add_widget(backlight)
 
         return root

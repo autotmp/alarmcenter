@@ -25,6 +25,6 @@ class DateButton(Button):
 
     def __init__(self, **kwargs):
         super(DateButton,self).__init__(**kwargs)
-        self.font_size = self.height/3.0
+        self.font_size = self.height/1.5
         Clock.schedule_interval(self._update, 1.0)
         Logger.info('DateButton Clock.schedule_interval for 1.0')
