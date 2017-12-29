@@ -22,6 +22,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 from kivy.uix.spinner import Spinner, SpinnerOption
 from kivy.logger import Logger
+from kivy.core.audio import SoundLoader
 
 class SpinnerButton(SpinnerOption):
     def __init__(self, text, **kwargs):
@@ -85,6 +86,12 @@ class AlarmWidget(BoxLayout):
 
     def wakeup(self):
         print("get up " + self.name)
+
+        sound = SoundLoader.load('annoying-sound.wav')
+
+        if sound:
+            sound.loop = True
+            sound.play()
 
     def update_alarm(self, instance):
         # update the displayed time
